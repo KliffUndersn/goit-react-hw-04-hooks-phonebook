@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from "prop-types"
 
 export const FilterContacts = ({filtered}) => {
-    console.log(filtered)
    return(
       
        <>
@@ -13,4 +13,8 @@ export const FilterContacts = ({filtered}) => {
             onChange={filtered}
             />
             </>)
+}
+
+FilterContacts.propTypes={
+   filtered:PropTypes.func.isRequired
 }
