@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { v4 as generate } from 'uuid';
 import { ContactList } from './ContactList/ContactList';
 import { FilterContacts } from './FilterContacts/FilterContacts';
@@ -11,9 +11,7 @@ const InputForm =() => {
  const [state,setState] = useState({
     name: '',
     filter: '',
-    number: '',
-    loading: true,
-    
+    number: '',    
   })
   const handleChange = ({ target }) => {
     setState({...state,
@@ -21,15 +19,15 @@ const InputForm =() => {
     });
    
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const {name, number} = state
+    if (contacts.length === 0) {return setContacts([{id: generate(),
+      name,
+      number,}])}
     const newName = contacts.map(e=> e.name)
     if (newName.includes(e.target.name.value)){return alert(`${e.target.name.value} says hello from chat`)}
-    createContact();
-    // localStorage.setItem('ContactList', JSON.stringify(state.contacts));
-  }
-  const createContact = () => {
-    const {name, number} = state
     const singleContact = {
       id: generate(),
       name,
@@ -39,7 +37,7 @@ const InputForm =() => {
     
   }
   const filterContacts = (e) => {
-    console.log(contacts.filter((e) => e.name.toLowerCase().includes(state.filter)))
+    if (contacts.length === 0) {return}
     return contacts.filter((e) => e.name.toLowerCase().includes(state.filter))
   }
 
